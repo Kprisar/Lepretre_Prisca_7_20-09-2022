@@ -1,3 +1,4 @@
+const postModel = require("../models/post.model");
 const PostModel = require("../models/post.model");
 const UserModel = require("../models/user.model");
 const { uploadErrors } = require("../utils/errors.utils");
@@ -96,22 +97,20 @@ module.exports.likePost = async (req, res) => {
       {
         $addToSet: { likers: req.body.id },
       },
-      { new: true },
-      (err, docs) => {
-        if (err) return res.status(400).send(err);
-      }
-    );
+      { new: true }
+    )
+      .then((data) => res.send(data))
+      .catch((err) => res.status(500).send({ message: err }));
+
     await UserModel.findByIdAndUpdate(
       req.body.id,
       {
         $addToSet: { likes: req.params.id },
       },
-      { new: true },
-      (err, docs) => {
-        if (!err) res.send(docs);
-        else return res.status(400).send(err);
-      }
-    );
+      { new: true }
+    )
+      .then((data) => res.send(data))
+      .catch((err) => res.status(500).send({ message: err }));
   } catch (err) {
     return res.status(400).send(err);
   }
@@ -127,22 +126,20 @@ module.exports.unlikePost = async (req, res) => {
       {
         $pull: { likers: req.body.id },
       },
-      { new: true },
-      (err, docs) => {
-        if (err) return res.status(400).send(err);
-      }
-    );
+      { new: true }
+    )
+      .then((data) => res.send(data))
+      .catch((err) => res.status(500).send({ message: err }));
+
     await UserModel.findByIdAndUpdate(
       req.body.id,
       {
         $pull: { likes: req.params.id },
       },
-      { new: true },
-      (err, docs) => {
-        if (!err) res.send(docs);
-        else return res.status(400).send(err);
-      }
-    );
+      { new: true }
+    )
+      .then((data) => res.send(data))
+      .catch((err) => res.status(500).send({ message: err }));
   } catch (err) {
     return res.status(400).send(err);
   }
@@ -165,12 +162,10 @@ module.exports.commentPost = (req, res) => {
           },
         },
       },
-      { new: true },
-      (err, docs) => {
-        if (!err) return res.send(docs);
-        else return res.status(400).send(err);
-      }
-    );
+      { new: true }
+    )
+      .then((data) => res.send(data))
+      .catch((err) => res.status(500).send({ message: err }));
   } catch (err) {
     return res.status(400).send(err);
   }
@@ -213,12 +208,10 @@ module.exports.deleteCommentPost = (req, res) => {
           },
         },
       },
-      { new: true },
-      (err, docs) => {
-        if (!err) return res.send(docs);
-        else return res.status(400).send(err);
-      }
-    );
+      { new: true }
+    )
+      .then((data) => res.send(data))
+      .catch((err) => res.status(500).send({ message: err }));
   } catch (err) {
     return res.status(400).send(err);
   }
