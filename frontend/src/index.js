@@ -1,16 +1,16 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./styles/index.scss";
 import { Provider } from "react-redux";
 import { applyMiddleware, legacy_createStore } from "redux";
 import thunk from "redux-thunk";
 import rootReducer from "./reducers";
-import { getPosts } from "./actions/post.actions";
+import { getUsers } from "./actions/users.actions";
 
 // dev tools
 import { composeWithDevTools } from "redux-devtools-extension";
-import { getUsers } from "./actions/users.actions";
+import { getPosts } from "./actions/post.actions";
 
 const store = legacy_createStore(
   rootReducer,
@@ -20,10 +20,19 @@ const store = legacy_createStore(
 store.dispatch(getUsers());
 store.dispatch(getPosts());
 
-ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-
-  document.getElementById("root")
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>
 );
+
+//ReactDOM.render(
+//<Provider store={store}>
+//<App />
+//</Provider>,
+
+//document.getElementById("root")
+//);

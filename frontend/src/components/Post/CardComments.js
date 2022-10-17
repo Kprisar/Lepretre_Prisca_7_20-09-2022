@@ -61,7 +61,7 @@ const CardComments = ({ post }) => {
                 <span>{timestampParser(comment.timestamp)}</span>
               </div>
               <p>{comment.text}</p>
-              <EditDeleteComment comment={comment} post Id={post._id} />
+              <EditDeleteComment comment={comment} postId={post._id} />
             </div>
           </div>
         );
