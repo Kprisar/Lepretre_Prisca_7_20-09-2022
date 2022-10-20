@@ -14,6 +14,9 @@ export const ADD_COMMENT = "ADD_COMMENT";
 export const EDIT_COMMENT = "EDIT_COMMENT";
 export const DELETE_COMMENT = "DELETE_COMMENT";
 
+// trends
+export const GET_TRENDS = "GET_TRENDS";
+
 // errors
 export const GET_POST_ERRORS = "GET_POST_ERRORS";
 
@@ -46,7 +49,7 @@ export const addPost = (data) => {
 
 export const likePost = (postId, userId) => {
   return (dispatch) => {
-    return axios({
+    axios({
       method: "patch",
       url: `${process.env.REACT_APP_API_URL}api/post/like-post/` + postId,
       data: { id: userId },
@@ -138,5 +141,11 @@ export const deleteComment = (postId, commentId) => {
         dispatch({ type: DELETE_COMMENT, payload: { postId, commentId } });
       })
       .catch((err) => console.log(err));
+  };
+};
+
+export const getTrends = (sortedArray) => {
+  return (dispatch) => {
+    dispatch({ type: GET_TRENDS, payload: sortedArray });
   };
 };

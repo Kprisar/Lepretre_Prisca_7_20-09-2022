@@ -49,10 +49,7 @@ const NewPostForm = () => {
     const handleVideo = () => {
       let findLink = message.split(" ");
       for (let i = 0; i < findLink.length; i++) {
-        if (
-          findLink[i].includes("https://www.yout") ||
-          findLink[i].includes("https://yout")
-        ) {
+        if (findLink[i].includes("") || findLink[i].includes("")) {
           let embed = findLink[i].replace("watch?v=", "embed/");
           setVideo(embed.split("&")[0]);
           findLink.splice(i, 1);
