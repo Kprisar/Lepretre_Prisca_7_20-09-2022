@@ -13,13 +13,14 @@ const FriendsHint = () => {
   useEffect(() => {
     const notFriendList = () => {
       let array = [];
+      // eslint-disable-next-line array-callback-return
       usersData.map((user) => {
         if (user._id !== userData._id && !user.followers.includes(userData._id))
           return array.push(user._id);
       });
       array.sort(() => 0.5 - Math.random());
       if (window.innerHeight > 780) {
-        array.length = 5;
+        array.length = 7;
       } else if (window.innerHeight > 720) {
         array.length = 4;
       } else if (window.innerHeight > 615) {
@@ -49,6 +50,7 @@ const FriendsHint = () => {
       ) : (
         <ul>
           {friendsHint &&
+            // eslint-disable-next-line array-callback-return
             friendsHint.map((user) => {
               for (let i = 0; i < usersData.length; i++) {
                 if (user === usersData[i]._id) {

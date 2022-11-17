@@ -1,4 +1,3 @@
-const postModel = require("../models/post.model");
 const PostModel = require("../models/post.model");
 const UserModel = require("../models/user.model");
 const { uploadErrors } = require("../utils/errors.utils");
@@ -10,8 +9,8 @@ const pipeline = promisify(require("stream").pipeline);
 module.exports.readPost = (req, res) => {
   PostModel.find((err, docs) => {
     if (!err) res.send(docs);
-    else console.log("Error to get data : " + err);
-  }).sort({ createdAt: -1 });
+    else console.log("Error to get data : " + error);
+  }).sort({ createdAt: -1 }); //tri antechronologique
 };
 
 module.exports.createPost = async (req, res) => {
@@ -26,7 +25,7 @@ module.exports.createPost = async (req, res) => {
       )
         throw Error("invalid file");
 
-      if (req.file.size > 500000) throw Error("max size");
+      if (req.file.size > 5000000) throw Error("max size");
     } catch (err) {
       const errors = uploadErrors(err);
       return res.status(201).json({ errors });
@@ -41,7 +40,7 @@ module.exports.createPost = async (req, res) => {
     );
   }
 
-  const newPost = new postModel({
+  const newPost = new PostModel({
     posterId: req.body.posterId,
     message: req.body.message,
     picture: req.file !== null ? "./uploads/posts/" + fileName : "",
@@ -112,7 +111,7 @@ module.exports.likePost = async (req, res) => {
       .then((data) => res.send(data))
       .catch((err) => res.status(500).send({ message: err }));
   } catch (err) {
-    return res.status(400).send(err);
+    //return res.status(400).send(err);
   }
 };
 
@@ -141,7 +140,7 @@ module.exports.unlikePost = async (req, res) => {
       .then((data) => res.send(data))
       .catch((err) => res.status(500).send({ message: err }));
   } catch (err) {
-    return res.status(400).send(err);
+    //return res.status(400).send(err);
   }
 };
 

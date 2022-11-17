@@ -49,10 +49,11 @@ export const addPost = (data) => {
 
 export const likePost = (postId, userId) => {
   return (dispatch) => {
-    axios({
+    return axios({
       method: "patch",
       url: `${process.env.REACT_APP_API_URL}api/post/like-post/` + postId,
       data: { id: userId },
+      withCredentials: true,
     })
       .then((res) => {
         dispatch({ type: LIKE_POST, payload: { postId, userId } });
@@ -67,6 +68,7 @@ export const unlikePost = (postId, userId) => {
       method: "patch",
       url: `${process.env.REACT_APP_API_URL}api/post/unlike-post/` + postId,
       data: { id: userId },
+      withCredentials: true,
     })
       .then((res) => {
         dispatch({ type: UNLIKE_POST, payload: { postId, userId } });
@@ -81,6 +83,7 @@ export const updatePost = (postId, message) => {
       method: "put",
       url: `${process.env.REACT_APP_API_URL}api/post/${postId}`,
       data: { message },
+      withCredentials: true,
     })
       .then((res) => {
         dispatch({ type: UPDATE_POST, payload: { message, postId } });
@@ -94,6 +97,7 @@ export const deletePost = (postId) => {
     return axios({
       method: "delete",
       url: `${process.env.REACT_APP_API_URL}api/post/${postId}`,
+      withCredentials: true,
     })
       .then((res) => {
         dispatch({ type: DELETE_POST, payload: { postId } });

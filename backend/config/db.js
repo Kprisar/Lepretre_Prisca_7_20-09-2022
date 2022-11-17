@@ -7,6 +7,7 @@ mongoose
       "@cluster0.m3tqtyv.mongodb.net/groupomania",
     {
       useNewUrlParser: true,
+      useUnifiedTopology: true,
     }
   )
 
