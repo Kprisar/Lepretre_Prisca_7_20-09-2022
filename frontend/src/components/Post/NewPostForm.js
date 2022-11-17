@@ -7,19 +7,19 @@ import { addPost, getPosts } from "../../actions/post.actions";
 const NewPostForm = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [message, setMessage] = useState("");
-  const [postPicture, setPostPicture] = useState(null);
+  const [postPicture, setPostPicture] = useState(null); //image affichee
   const [video, setVideo] = useState("");
-  const [file, setFile] = useState();
+  const [file, setFile] = useState(); //fichier image
   const userData = useSelector((state) => state.userReducer);
-
+  const error = useSelector((state) => state.errorReducer.postError);
   const dispatch = useDispatch();
 
   const handlePost = async () => {
     if (message || postPicture || video) {
       const data = new FormData();
-      data.append("posterId", userData._id);
-      data.append("message", message);
-      if (file) data.append("file", file);
+      data.append("posterId", userData._id); //req.boby
+      data.append("message", message); //req.body
+      if (file) data.append("file", file); //req.file
       data.append("video", video);
 
       await dispatch(addPost(data));
@@ -31,8 +31,8 @@ const NewPostForm = () => {
   };
 
   const handlePicture = (e) => {
-    setPostPicture(URL.createObjectURL(e.target.files[0]));
-    setFile(e.target.files[0]);
+    setPostPicture(URL.createObjectURL(e.target.files[0])); //visualisation photo sur post
+    setFile(e.target.files[0]); //req.file en back
     setVideo("");
   };
 
@@ -49,7 +49,10 @@ const NewPostForm = () => {
     const handleVideo = () => {
       let findLink = message.split(" ");
       for (let i = 0; i < findLink.length; i++) {
-        if (findLink[i].includes("") || findLink[i].includes("")) {
+        if (
+          findLink[i].includes("https://www.yout") ||
+          findLink[i].includes("https://yout")
+        ) {
           let embed = findLink[i].replace("watch?v=", "embed/");
           setVideo(embed.split("&")[0]);
           findLink.splice(i, 1);
@@ -138,10 +141,18 @@ const NewPostForm = () => {
                   <button onClick={() => setVideo("")}>Supprimer video</button>
                 )}
               </div>
-
-              <button className="send" onClick={handlePost}>
-                Envoyer
-              </button>
+              {!isEmpty(error.format) && <p>{error.format}</p>}
+              {!isEmpty(error.maxSize) && <p>{error.maxSize}</p>}
+              <div className="btn-send">
+                {message || postPicture || video.length > 20 ? (
+                  <button className="cancel" onClick={cancelPost}>
+                    Annuler message
+                  </button>
+                ) : null}
+                <button className="send" onClick={handlePost}>
+                  Envoyer
+                </button>
+              </div>
             </div>
           </div>
         </>

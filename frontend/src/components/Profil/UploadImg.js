@@ -13,13 +13,24 @@ const UploadImg = () => {
     data.append("name", userData.pseudo);
     data.append("userId", userData._id);
     data.append("file", file);
+    /*const datas = {
+      name: userData.pseudo,
+      userId: userData._id,
+      file: document.getElementById("avatar").files[0],
+    };*/
+    console.log(file[0]);
 
+    console.log(userData._id);
     dispatch(uploadPicture(data, userData._id));
   };
 
   return (
-    <form action="" onSubmit={handlePicture} className="upload-pic">
-      <label htmlFor="file">Changer d'image</label>
+    <form
+      action=""
+      onSubmit={handlePicture}
+      className="upload-pic"
+      encType="multipart/form-data"
+    >
       <input
         type="file"
         id="file"

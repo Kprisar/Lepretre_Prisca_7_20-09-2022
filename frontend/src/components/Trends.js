@@ -24,7 +24,7 @@ const Trends = () => {
   return (
     <div className="trending-container">
       <h4>Trending</h4>
-      <NavLink exact to="/trending">
+      <NavLink exact="string" to="/trending">
         <ul>
           {trendList.length &&
             trendList.map((post) => {
@@ -36,7 +36,7 @@ const Trends = () => {
                       <iframe
                         src={post.video}
                         frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        //allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                         title={post._id}
                       ></iframe>

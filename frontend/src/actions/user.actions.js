@@ -22,7 +22,6 @@ export const getUser = (uid) => {
 export const uploadPicture = (data, id) => {
   return (dispatch) => {
     return axios
-
       .post(`${process.env.REACT_APP_API_URL}api/user/upload`, data)
       .then((res) => {
         if (res.data.errors) {

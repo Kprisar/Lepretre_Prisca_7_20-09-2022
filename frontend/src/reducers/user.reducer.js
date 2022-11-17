@@ -12,6 +12,7 @@ export default function userReducer(state = initialState, action) {
   switch (action.type) {
     case GET_USER:
       return action.payload;
+
     case UPLOAD_PICTURE:
       return {
         ...state,
@@ -34,7 +35,6 @@ export default function userReducer(state = initialState, action) {
           (id) => id !== action.payload.idToUnfollow
         ),
       };
-
     default:
       return state;
   }
